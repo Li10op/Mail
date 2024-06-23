@@ -1,0 +1,3 @@
+﻿  ReceiveDlg.cpp
+C:\Users\yu151\Desktop\MFC-Mail-app-master\Mail\ReceiveDlg.cpp(70,20): warning C4018: “<”: 有符号/无符号不匹配
+  Mail.vcxproj -> C:\Users\yu151\Desktop\MFC-Mail-app-master\Debug\Mail.exe
