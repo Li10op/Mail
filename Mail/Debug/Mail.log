@@ -1,3 +1,4 @@
-﻿  ReceiveDlg.cpp
-C:\Users\yu151\Desktop\MFC-Mail-app-master\Mail\ReceiveDlg.cpp(70,20): warning C4018: “<”: 有符号/无符号不匹配
-  Mail.vcxproj -> C:\Users\yu151\Desktop\MFC-Mail-app-master\Debug\Mail.exe
+﻿F:\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(Debug\)包含从另一个项目(Mail.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  SendDlg.cpp
+C:\Users\yu151\Desktop\MFC-Mail-app-master\Mail\SendDlg.cpp(286,16): warning C4244: “初始化”: 从“ULONGLONG”转换到“DWORD”，可能丢失数据
+  Mail.vcxproj -> C:\Users\yu151\Desktop\MFC-Mail-app-master\Debug\Mail-YYF.exe

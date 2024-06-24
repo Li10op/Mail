@@ -36,7 +36,6 @@ SendDlg::SendDlg(CWnd* pParent /*=NULL*/)
 	, m_Attach(_T(""))
 	, m_Letter(_T(""))
 	, m_Info(_T(""))
-	, m_encrypt(FALSE)
 {
 
 }
@@ -61,8 +60,6 @@ void SendDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_ATTACH, m_Attach);
 	DDX_Text(pDX, IDC_EDIT_LETTER, m_Letter);
 	DDX_Text(pDX, IDC_RICH_LIST, m_Info);
-	DDX_Check(pDX, IDC_CHECK1, m_encrypt);
-	DDX_Control(pDX, IDC_CHECK1, m_ctrEncrypt);
 	DDX_Control(pDX, IDC_EDIT_LETTER, m_edit_Letter);
 }
 
@@ -195,20 +192,10 @@ void SendDlg::GetHeader()  //获取信件的内容
 	sBuf += sReply;
 
 	//添加 subject字段
-	//Subject: =?GB2312?B?XXXXXX=?= // 主题，进行了编码
-		if(m_encrypt) {
-			CString jiami;
-				jiami.Format("(有内鬼，加密邮件)");
-				m_Title +=jiami;
-			coder.Encode(m_Title);
-			sReply.Format(_T("Subject: %s\r\n"),m_Title);
-		}
-		else {
-			coder.Encode(m_Title);
-				sReply.Format(_T("Subject: %s\r\n"),m_Title);
-		}
+	//Subject: =?GB2312?B?XXXXXX=?= // 主题，进行了Base64编码
 
-//	sReply.Format(_T("Subject: =?gb2312?B?%s?=\r\n"),coder.EncodedMessage());
+	coder.Encode(m_Title);
+	sReply.Format(_T("Subject: %s\r\n"),m_Title);
 	sBuf += sReply;
 
 	//如果有，添加 Cc 字段
@@ -240,12 +227,7 @@ void SendDlg::GetHeader()  //获取信件的内容
 		sBuf += _T("\r\n");
 	} else {
 		sBuf += _T("\r\n");
-		if(m_encrypt) {
-			sReply.Format(_T(" %s\r\n") ,RC4_encrypt(m_Letter));
-		}
-		else {
-			sReply.Format(_T(" %s\r\n") ,m_Letter);
-		}
+		sReply.Format(_T(" %s\r\n") ,m_Letter);
 		sBuf += sReply;
 		sReply.Format(_T("%c%c.%c%c"),13,10,13,10);
 		sBuf += sReply;
@@ -354,14 +336,14 @@ BOOL SendDlg::GetBody(LPSTR& pszBody, int& nBodySize) //获取附件内容
 	return bSuccess;
 }
 
-void SendDlg::InitSendDialog(void)
+void SendDlg::InitSendDialog(void) //初始化发送对话框
 {
-	m_Name = _T("Kinson");               //发信人
+	m_Name = _T("余永福");               //发信人
 	m_Addr = _T("1315697904@qq.com");     //发信地址
 	m_Server = _T("smtp.qq.com");   //smtp服务器
 	m_Port = 25;                     //smtp的保留端口
 	m_User = _T("1315697904@qq.com");             //用户名
-	m_Pass = _T("llutwfcrebefhhdd");           //口令
+	m_Pass = _T("");           //口令
 
 	m_Receiver = _T("yu15139751003@163.com"); //收信人地址
 	m_Title = _T("");            //主题
@@ -372,80 +354,24 @@ void SendDlg::InitSendDialog(void)
 	UpdateData(FALSE);               //更新用户界面
 }
 
-//RC4加密
-CString SendDlg::RC4_encrypt(CString letter)
-{
-	string str;
-    CString encrypt ;
-	str = CA2A(letter.GetString()); //加密的明文
-	unsigned char Tbox[256] = {0x00}; //全部初始化为0
-	unsigned char Sbox[256] = {0x00};//全部初始化为0
-	char *k="wjl";//使用密钥wjl进行加密
-	int len=strlen(k); //获取密钥长度
-    for(int i=0;i<256;i++) Sbox[i]=i; //初始化S
-	if(len>=256) for(int i=0;i<256;i++) Tbox[i]=k[i];   //密钥扩展到盒中
-	if(len<256) for(int i=0;i<256;i++) Tbox[i]=k[i%len];
-	int j=0; 
-	unsigned char swap;
-	int n;
-	for(int i=0;i<256;i++)  //S和T的初始置换
-	{
-		n=j+(int)Sbox[i]+(int)Tbox[i]; 
-		j=n%256;
-		swap=Sbox[i];
-		Sbox[i]=Tbox[i];
-		Tbox[i]=swap;
-	}
-	//实现加密
-	  int i=0;
-      j=0;
-	  int t;
-	  for (int q = 0; q != str.length(); ++q){
-	  char  ch = str.at(q);
-		  i=(i+1)%256;
-		   j=(j+Sbox[i])%256;
-		   swap=Sbox[i];
-		   Sbox[i]=Sbox[j];
-		   Sbox[j]=swap;
-		   int t1=(int)Sbox[i]+(int)Sbox[j];
-		   t=t1%256;
-		   char k1=Sbox[t];          //k1为经过多步操作置换得到的密钥
-		   char cipherchar = ch^k1; //cipherchar为得到的密文
-		   str.insert(q,1,cipherchar);
-		   str.erase(q + 1, 1);
-	  }
-	  encrypt += CA2A(str.c_str());
-	  return encrypt;
-
-
-}
 
 void SendDlg::OnBtnWriteagain()
 {
-	// TODO: 在此添加控件通知处理程序代码
-	::PostMessage(AfxGetMainWnd()->m_hWnd,WM_SYSCOMMAND,SC_CLOSE,NULL);
-    //获取exe程序当前路径
-    extern CMailApp theApp;
-    TCHAR szAppName[MAX_PATH];
-    :: GetModuleFileName(theApp.m_hInstance, szAppName, MAX_PATH);
-    CString strAppFullName;
-    strAppFullName.Format(_T("%s"),szAppName);
-    //重启程序
-    STARTUPINFO StartInfo;
-    PROCESS_INFORMATION procStruct;
-    memset(&StartInfo, 0, sizeof(STARTUPINFO));
-    StartInfo.cb = sizeof(STARTUPINFO);
-    ::CreateProcess(
-        (LPCTSTR)strAppFullName,
-        NULL,
-        NULL,
-        NULL,
-        FALSE,
-        NORMAL_PRIORITY_CLASS,
-        NULL,
-        NULL,
-        &StartInfo,
-        &procStruct);
+	// 清空全部字段
+        m_Name.Empty();
+        m_Addr.Empty();
+        m_Server.Empty();
+        m_Port = 0;
+        m_User.Empty();
+        m_Pass.Empty();
+        m_Receiver.Empty();
+        m_Title.Empty();
+        m_CC.Empty();
+        m_BCC.Empty();
+        m_Attach.Empty();
+        m_Letter.Empty();
+        m_Info.Empty();
+        UpdateData(FALSE);
 }
 
 
@@ -489,7 +415,6 @@ BOOL SendDlg::PreTranslateMessage(MSG* pMsg)
 
 void SendDlg::OnBnClickedSave()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	UpdateData(TRUE);
 
 	// 判断草稿箱文件夹是否存在，不存在则创建
@@ -501,7 +426,7 @@ void SendDlg::OnBnClickedSave()
 
 	CString fileName;
 	// 保存草稿文件
-	fileName.Format(_T("draft/%s-%s.txt"), m_Title, m_Receiver); // Save the file in the "draft" folder
+	fileName.Format(_T("draft/%s--to--%s.txt"), m_Title, m_Receiver); // Save the file in the "draft" folder
 
 	CStdioFile file;
 	if (file.Open(fileName, CFile::modeCreate | CFile::modeWrite | CFile::typeText))
@@ -646,10 +571,6 @@ void SendDlg::OnBnClickedBtnView2()
 		else if (strLine.Left(7) == _T("Letter:"))
 		{
 			m_Letter = strLine.Mid(8);
-		}
-		else if (strLine.Left(8) == _T("Encrypt:"))
-		{
-			m_encrypt = (strLine.Mid(9) == _T("1")) ? TRUE : FALSE;
 		}
 	}
 	file.Close();

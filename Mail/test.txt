@@ -1,0 +1,56 @@
++OK 2882 octets
+Received: from out203-205-221-235.mail.qq.com (unknown [203.205.221.235])
+	by gzga-mx-mta-g4-5 (Coremail) with SMTP id _____wDn18GIb3hmfxW4AQ--.26070S3;
+	Mon, 24 Jun 2024 02:55:04 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1719168904; bh=3+cZCiXFm+dV4cUopp0JZrzEewIsB5dF2ltyzWq5IWI=;
+	h=From:To:Date:Subject;
+	b=FSmLuVv4UTKXiBL67ewQ+PM9h/CzoD5GK3X5hic/giSB8tKcFNGfwBixlTmwt5cPP
+	 Xo+u1NDOG/UGmWPfee30MymGryS5Ex2SLlRNwSXh61XvDE7dBmwJoCX6p9sj/f7Hoy
+	 J2iomMRTyao6X8QgOUi8E1Odn5LUvRmIUlftn1L8=
+Received: from ”‡”¿∏£ ([39.148.24.240])
+	by newxmesmtplogicsvrszc13-0.qq.com (NewEsmtp) with SMTP
+	id DC33BA9C; Mon, 24 Jun 2024 02:55:03 +0800
+X-QQ-mid: xmsmtpt1719168903twc8av3gy
+Message-ID: <tencent_7FCEFBC726008402938AF1342F536EF76905@qq.com>
+X-QQ-XMAILINFO: OUUXHEo9i1uk0bZOATgoZ2Bi8cvTTRXpaP57xmG7dzIWY+vU647iRddUzkMJ6/
+	 3FvgV+qG7+h8UoGmBcIRszp2nyaXQtM90uoxSqlh6KhgYf6l6pq2krtLWX2rvNXoBrFUlvBJjnWf
+	 02woexSZQWMe3AFRyo/6+AWSO70Dy394CeIKdlgmKEhx/UXtJ1EYDZ2Iw7MiaTM+35KqDkNJQkWm
+	 6Q7yMU1T2vsFFte/r2qQeBlQRZ/htOwO9+f24csHsioCJ6Lm0xdL6wx2HKDX2Hxxjr8L9bGZtTgJ
+	 C3Q8z4Jy55VEi3R9LE0yFm42LRqWo5hPmNKG1J2bDCs9tEApWgmALS+pVaq3aFwx2FVDjaOqH4pS
+	 Kax2YptJNFqmFuIYn5PwRqv/IixZBrIzIvQifl27gJPRxpAYx2U2CkRnWatrxTiUqAMQnKAU9O5j
+	 bhPgEAnZTcv7+0hV4fFljG2yLO+2dQbzloB3UpxblI6JixKnbNC4g1dJYasq9CcVLqImhVKAEulY
+	 aaAuSn3s/THlkWhRJtbmjLr1uvWpL59PKZ+6CtP5uyIwMYXzkUGh4lSBoLaQ2y3C0vbthsdloiTM
+	 zJ7Wq33K6BcBGwAlI0tHWH/FjEwHWApUJQw1Jvoj5dxZby817dszjtcr/WjhmXcLA6WbU2F5ya+X
+	 NdIfv1mMP2BBYev4VHQ5yhYRF/MQ5SYllmhvXhAluhZGyzj2/pGHN4SQN8iTW+y9Dhk87iXwHJLr
+	 mQT587cAVHSQ3KH5dG8G1lkGHji0HJ2KmG/llA9vsHmQaBg1sOy1tmIlhWPnBQYLU/wkCL9pyXS2
+	 kjUiAbMsfGxf+MZluj1U1/8T99qAV2RA3uxncxSNYCuAiOth5rkNesMHbpwPv75/iivvGTj2e8Kf
+	 2zlYWfdy2Fd5mtTvPPzSoPwIaP2/dTZNAlt7KHDKsva/T/ZM23l9wxPvwQ1fI+dDHQG0cEaQCnJQ
+	 By+6vhD20=
+X-QQ-XMRINFO: M/715EihBoGSf6IYSX1iLFg=
+MIME-Version: 1.0
+From: 1315697904@qq.com
+To: yu15139751003@163.com
+Date: Mon, 24 Jun 2024 02:55:04 +0800 (CST)
+Subject: ≤‚ ‘12
+Content-Type:Multipart/mixed;boundary=Boundary-=_HfNFaIwtPvzJDUQrvChaEKIMklNx
+X-CM-TRANSID:_____wDn18GIb3hmfxW4AQ--.26070S3
+Authentication-Results: gzga-mx-mta-g4-5; spf=pass smtp.mail=131569790
+	4@qq.com; dkim=pass header.i=@qq.com
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUg9miUUUUU
+
+--Boundary-=_HfNFaIwtPvzJDUQrvChaEKIMklNx
+Content-Type: text/plain; charset='gb2312'
+Content-Transfer-Encoding: base64
+
+
+--Boundary-=_HfNFaIwtPvzJDUQrvChaEKIMklNx
+Content-Type: text/plain; charset='gb2312'
+Content-Transfer-Encoding: base64
+
+RnJvbTogMTMxNTY5NzkwNEBxcS5jb20NDQoNDQpUbzogeXUxNTEzOTc1MTAwM0AxNjMuY29tDQ0K
+DQ0KRGF0ZTogTW9uLCAyNCBKdW4gMjAyNCAwMTo0NToyOCArMDgwMCAoQ1NUKQ0NCg0NClN1Ympl
+Y3Q6ILLiytQNDQoNDQqy4srUMzQNDQo=
+--Boundary-=_HfNFaIwtPvzJDUQrvChaEKIMklNx
+.
