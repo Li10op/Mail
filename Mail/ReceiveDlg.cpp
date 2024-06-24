@@ -61,7 +61,6 @@ void ReceiveDlg::OnBtnConn()
 		//设定pop3类的对话框指针变量，使之指向本对话框，以便传递信息
 	pop3Socket.SetParent(this); 
 	UpdateData(TRUE);           //取来用户在对话框中输入的数据
-	InitReceiveDialog();
 	pop3Socket.Create();        //创建套接字对象的底层套接字
 	pop3Socket.Connect((LPCSTR)m_strServer,110); //连接pop3服务器
 	m_Info = "";                //多文本列表框清空
@@ -70,7 +69,7 @@ void ReceiveDlg::OnBtnConn()
 	for (int i = 0; i < pop3Socket.msgs.size(); i++)
 	{
 		CString subject = pop3Socket.GetMsgSubject(i);
-		((CComboBox*)GetDlgItem(IDC_COMB_LIST))->AddString(subject);
+		((CComboBox*)GetDlgItem(IDC_COMB_LIST))->AddString(subject.Mid(8));
 	}
 	GetDlgItem(IDC_BTN_VIEW)->EnableWindow(TRUE);   //查看邮件按钮
 	GetDlgItem(IDC_BTN_SAVE)->EnableWindow(TRUE);   //存储按钮
@@ -114,21 +113,7 @@ void ReceiveDlg::OnBtnView()
 	m_Info +=pop3Socket.GetMsgSubject(i);   //加上标题函数
 	m_Info +="\n"; //加上换行
 	m_Info += s;
-	if(isEncrypt(pop3Socket.GetMsgSubject(i))) {
-	s=pop3Socket.RC4_decrypt(pop3Socket.GetMsgBody(i));
-	//  int index_first;
-	  //int index_last;
-	
-	  s=s.Left(s.GetLength()-2);
-	m_Info +=s;
-	}
-	else {
-		m_Info += pop3Socket.GetMsgBody(i);
-	}
-
-	/*s.Format("第 %d 封信 %c%c",i,13,10);
-	  m_Info +=s;
-	  m_Info += pop3Socket.msgs[i].text;*/
+	m_Info += pop3Socket.GetMsgBody(i);
 	UpdateData(FALSE);
 }
 
@@ -138,11 +123,11 @@ void ReceiveDlg::OnBtnSave()
     int i;
     CString s;
     i = m_ctrList.GetCurSel();
-    // Get the specified email's basic properties and content
+    // 获取指定电子邮件的基本属性和内容
     s = pop3Socket.GetMsgStuff(i);
     s += pop3Socket.GetMsgBody(i);
 
-    // Open a file dialog to specify the save file path
+    // 打开文件保存路径
     CFileDialog dlg(FALSE, _T("txt"), NULL, OFN_OVERWRITEPROMPT, _T("Text Files (*.txt)|*.txt||"), this);
     dlg.m_ofn.lpstrInitialDir = _T("C:\\Users\\<username>\\Desktop"); // Set the default path to the desktop
     if (dlg.DoModal() == IDOK)
@@ -150,7 +135,7 @@ void ReceiveDlg::OnBtnSave()
         try
         {
             CStdioFile file(dlg.GetPathName(), CFile::modeCreate | CFile::modeWrite | CFile::typeText);
-            file.WriteString(s); // Use WriteString to write CString directly
+            file.WriteString(s); // 写入文件
             file.Close();
         }
         catch (CFileException* e)
@@ -212,11 +197,11 @@ void ReceiveDlg::Disp(LONG flag)
 	}
 	UpdateData(FALSE);   //更新用户界面
 }
-void ReceiveDlg::InitReceiveDialog(void)
+void ReceiveDlg::InitReceiveDialog(void) //初始化对话框
 {
 	m_strServer = _T("pop.163.com");   //POP3服务器地址
 	m_strUser = _T("yu15139751003@163.com");               //邮箱的用户名
-	m_strPass = _T("FBMEKJJVRVIZKSXA");              //口令
+	m_strPass = _T("");              //口令
 	m_Info = _T("");                       //多文本框清空
 	m_ctrList.ResetContent();
 	if(pop3Socket.msgs.empty())
@@ -229,17 +214,7 @@ void ReceiveDlg::InitReceiveDialog(void)
 	GetDlgItem(IDC_BTN_DISC)->EnableWindow(FALSE);   //禁用断开按钮
 	UpdateData(FALSE);
 }
-bool ReceiveDlg::isEncrypt(CString Msgbody)
-{
-	int index;
 
-	index = Msgbody.Find("加密");
-	if(index != -1) {
-		return true;
-	}
-	else return false;
-
-}
 //按下垃圾箱
 void ReceiveDlg::OnBtnRb()
 {

@@ -41,16 +41,11 @@ public:
 	afx_msg void OnBtnView();
 	afx_msg void OnOK();
 	 void InitSendDialog(void); //初始化
-	 CString RC4_encrypt(CString letter); //信件加密的主要操作
 private:
 	CBase64 coder;
 	BOOL GetBody(LPSTR& pszBody, int& nBodySize);
 public:
 	afx_msg void OnBtnWriteagain();
-	//afx_msg void OnOK2();
-//	afx_msg void OnBnClickedCheck1();
-	BOOL m_encrypt;
-	CButton m_ctrEncrypt;
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	CEdit m_edit_Letter;

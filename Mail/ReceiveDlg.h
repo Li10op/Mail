@@ -40,6 +40,5 @@ public:
 	afx_msg void OnBtnView();
 	afx_msg void OnBtnSave();
 	BOOL m_bolDel;
-	bool isEncrypt(CString Msgbody);
 	afx_msg void OnBtnRb();
 };

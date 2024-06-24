@@ -48,8 +48,6 @@ END_MESSAGE_MAP()
 
 // CMailDlg ¶Ô»°¿ò
 
-
-
 CMailDlg::CMailDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CMailDlg::IDD, pParent)
 {

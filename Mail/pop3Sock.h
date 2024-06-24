@@ -67,7 +67,6 @@ public:
 	void SetParent(ReceiveDlg *  pDlg);
 	pop3Sock();
 	virtual ~pop3Sock();
-   CString RC4_decrypt(CString letter); //信件解密的主要操作
 
 // Overrides
 public:
